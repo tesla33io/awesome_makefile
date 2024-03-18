@@ -41,7 +41,7 @@ endif
 
 .DEFAULT_GOAL	:= all
 
-all: $(TARGET)
+all: $(TARGET) ## Build this project
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(MKDIR) $(@D)
@@ -64,7 +64,7 @@ $(TARGET): $(OBJ_FILES) $(LIBFT_LIB) $(FT_PRINTF_LIB)
 
 #### ADDITIONAL RULES ####
 
-clean:
+clean: ## Clean objects and dependencies
 	@$(RM) $(OBJ_FILES)
 	@$(RM) -r $(OBJ_DIR)
 	@echo "$(YELLOW)[clean ]: Remove objects$(RESET)"
@@ -78,7 +78,7 @@ clean:
 ## 		echo "$(YELLOW)[clean ]: Clean \`libft\` lib$(RESET)") || \
 ## 		echo "$(RED)[clean ]: Can't clean \`libft\` lib$(RESET)"
 
-fclean: clean
+fclean: clean ## Restore project to initial state
 	@$(RM) $(TARGET)
 	@echo "$(YELLOW)[fclean]: Remove \`$(TARGET)\`$(RESET)"
 ## 	@(test -s $(FT_PRINTF_LIB) && $(MAKE) -sC $(FT_PRINTF_PATH) fclean && \
@@ -88,9 +88,13 @@ fclean: clean
 ## 		echo "$(YELLOW)[fclean]: Remove \`libft\` lib$(RESET)") || \
 ## 		echo "$(RED)[fclean]: Can't remove \`libft\` lib$(RESET)"
 
-re: fclean all
+re: fclean all ## Rebuild project
 
-.PHONY: all re clean fclean
+help: ## Show help info
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-30s$(RESET) %s\n", $$1, $$2}'
+
+.PHONY: all re clean fclean help
 
 #### COLORS ####
 # Color codes

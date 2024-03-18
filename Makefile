@@ -7,7 +7,7 @@ CC				:= clang
 CFLAGS			:= -Wall -Werror -Wextra -pedantic -O3
 
 # Libraries to be linked (if any)
-LIBS			:=
+LIBS			:= -Llib/libft/ -lft
 
 # Include directories
 INCLUDES		:= -Iinclude/
@@ -45,7 +45,7 @@ TOUCH			:= /bin/touch
 ## FT_PRINTF_PATH	:= ft_printf/
 ## FT_PRINTF_LIB	:= $(FT_PRINTF_PATH)libftprintf.a
 
-## LIBFT_PATH		:= libft/
+## LIBFT_PATH		:= lib/libft/
 ## LIBFT_LIB		:= $(LIBFT_PATH)libft.a
 
 #### DEBUG SETTINGS ####
@@ -63,14 +63,19 @@ all: $(TARGET) ## Build this project
 # Compilation rule for object files
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(MKDIR) $(@D)
-	@echo "$(CYAN)[build]: $@$(RESET)"
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo -n "build]: $(CYAN)"
+	@echo "$(BOLD)compile$(RESET)$(CYAN) $@ $(RESET)"
 	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 
 # Rule for linking the target executable
-$(TARGET): $(OBJ_FILES) ## $(LIBFT_LIB) $(FT_PRINTF_LIB)
-	@echo "$(GREEN)[build]: Link $(TARGET)$(RESET)"
+$(TARGET): $(OBJ_FILES) $(LIBFT_LIB)
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo -n "build]: $(GREEN)"
+	@echo "$(BOLD)Link$(RESET)$(GREEN) $(TARGET) $(RESET)"
 	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)
-	@echo "$(GREEN)[info ]: Build finished!$(RESET)"
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo "info]: $(GREEN)$(BOLD)Build finished!$(RESET)"
 	-@echo -n "$(MAGENTA)" && ls -lah $(TARGET) && echo -n "$(RESET)"
 
 #### LOCAL LIBS COMPILATION ####
@@ -79,33 +84,27 @@ $(TARGET): $(OBJ_FILES) ## $(LIBFT_LIB) $(FT_PRINTF_LIB)
 ## 	@$(MAKE) -sC $(FT_PRINTF_PATH)
 
 ## $(LIBFT_LIB):
-## 	@$(MAKE) -sC $(LIBFT_PATH)
+## 	@$(MAKE) -C $(LIBFT_PATH)
 
 #### ADDITIONAL RULES ####
 
 clean: ## Clean objects and dependencies
 	@$(RM) $(OBJ_FILES)
 	@$(RM) -r $(OBJ_DIR)
-	@echo "$(YELLOW)[clean ]: Remove objects$(RESET)"
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo "clean]: $(YELLOW)$(BOLD)Remove objects$(RESET)"
 	@$(RM) $(DEPENDS)
 	@$(RM) -r $(DEP_DIR)
-	@echo "$(YELLOW)[clean ]: Remove dependecies$(RESET)"
-## 	@(test -s $(FT_PRINTF_LIB) && $(MAKE) -sC $(FT_PRINTF_PATH) clean && \
-## 		echo "$(YELLOW)[clean ]: Clean \`ft_printf\` lib$(RESET)") || \
-## 		echo "$(RED)[clean ]: Can't clean \`ft_printf\` lib$(RESET)"
-## 	@(test -s $(LIBFT_LIB) && $(MAKE) -sC $(LIBFT_PATH) clean && \
-## 		echo "$(YELLOW)[clean ]: Clean \`libft\` lib$(RESET)") || \
-## 		echo "$(RED)[clean ]: Can't clean \`libft\` lib$(RESET)"
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo "clean]: $(YELLOW)$(BOLD)Remove dependecies$(RESET)"
+## 	@(test -s $(LIBFT_LIB) && $(MAKE) -C $(LIBFT_PATH) clean) ||:
 
 fclean: clean ## Restore project to initial state
 	@$(RM) $(TARGET)
-	@echo "$(YELLOW)[fclean]: Remove \`$(TARGET)\`$(RESET)"
-## 	@(test -s $(FT_PRINTF_LIB) && $(MAKE) -sC $(FT_PRINTF_PATH) fclean && \
-## 		echo "$(YELLOW)[fclean]: Remove \`ft_printf\` lib$(RESET)") || \
-## 		echo "$(RED)[fclean]: Can't remove \`ft_printf\` lib$(RESET)"
-## 	@(test -s $(LIBFT_LIB) && $(MAKE) -sC $(LIBFT_PATH) fclean && \
-## 		echo "$(YELLOW)[fclean]: Remove \`libft\` lib$(RESET)") || \
-## 		echo "$(RED)[fclean]: Can't remove \`libft\` lib$(RESET)"
+	@echo -n "$(BLUE)[$(TARGET) - "
+	@echo -n "fclean]: $(YELLOW)"
+	@echo "$(BOLD)Remove$(RESET)$(YELLOW) \`$(TARGET)\`$(RESET)"
+## 	@(test -s $(LIBFT_LIB) && $(MAKE) -C $(LIBFT_PATH) fclean) ||:
 
 re: fclean all ## Rebuild project
 

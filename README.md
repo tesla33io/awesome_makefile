@@ -8,7 +8,7 @@
 2. Download Makefile to your local directory
    
 ```bash
-wget "https://raw.githubusercontent.com/tesla33io/my_awesome_makefile/main/Makefile"
+wget "https://raw.githubusercontent.com/tesla33io/awesome_makefile/main/Makefile"
    ```
 
 3. Make any needed changes.

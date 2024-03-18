@@ -2,7 +2,7 @@
 
 CC				:= cc
 CFLAGS			:= -Wall -Werror -Wextra -pedantic -O3
-LIBS			:= 
+LIBS			:=
 INCLUDES		:= -Iinclude/
 
 TARGET			:=
@@ -21,8 +21,15 @@ DEPENDS			:= $(patsubst %.o, $(DEP_DIR)%.d, $(OBJ_FILES))
 
 RM				:= /bin/rm -f
 MKDIR			:= /bin/mkdir -p
+TOUCH			:= /bin/touch
 
 #### LOCAL LIBRARIES ####
+
+## FT_PRINTF_PATH	:= ft_printf/
+## FT_PRINTF_LIB	:= $(FT_PRINTF_PATH)libftprintf.a
+
+## LIBFT_PATH		:= libft/
+## LIBFT_LIB		:= $(LIBFT_PATH)libft.a
 
 #### DEBUG SETTINGS ####
 
@@ -30,43 +37,56 @@ ifeq ($(DEBUG), 1)
 	CFLAGS		+= -g3 -O0
 endif
 
-#### LOGGING ####
-
-LOG_DIR			:= logs/
-LOG_FILE		:= $(LOG_DIR)$(TARGET)_build_$(shell date +"%Y-%m-%d_%H-%M-%S").log
-
 #### TARGET COMPILATION ####
+
+.DEFAULT_GOAL	:= all
 
 all: $(TARGET)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(MKDIR) -p $(@D)
-	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@\
-		2>&1 | tee -a $(LOG_FILE)
+	@$(MKDIR) $(@D)
+	@echo "$(CYAN)[build]: $@$(RESET)"
+	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 
-$(TARGET): $(OBJ_FILES)
-	@echo -e "$(GREEN):: Compile $(TARGET)$(RESET)"
-	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS) \
-		2>&1 | tee -a $(LOG_FILE)
-	@echo -e "$(GREEN):: Compilation finished!$(RESET)"
-	@echo -en "$(BLUE)See \`$(LOG_FILE)\` for"
-	@echo -e " more details about compilation process.$(RESET)"
-	@ls -lah $(TARGET)
+$(TARGET): $(OBJ_FILES) $(LIBFT_LIB) $(FT_PRINTF_LIB)
+	@echo "$(GREEN)[build]: Link $(TARGET)$(RESET)"
+	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)
+	@echo "$(GREEN)[info ]: Build finished!$(RESET)"
+	-@echo -n "$(MAGENTA)" && ls -lah $(TARGET) && echo -n "$(RESET)"
 
 #### LOCAL LIBS COMPILATION ####
+
+## $(FT_PRINTF_LIB):
+## 	@$(MAKE) -sC $(FT_PRINTF_PATH)
+
+## $(LIBFT_LIB):
+## 	@$(MAKE) -sC $(LIBFT_PATH)
 
 #### ADDITIONAL RULES ####
 
 clean:
 	@$(RM) $(OBJ_FILES)
 	@$(RM) -r $(OBJ_DIR)
+	@echo "$(YELLOW)[clean ]: Remove objects$(RESET)"
 	@$(RM) $(DEPENDS)
 	@$(RM) -r $(DEP_DIR)
+	@echo "$(YELLOW)[clean ]: Remove dependecies$(RESET)"
+## 	@(test -s $(FT_PRINTF_LIB) && $(MAKE) -sC $(FT_PRINTF_PATH) clean && \
+## 		echo "$(YELLOW)[clean ]: Clean \`ft_printf\` lib$(RESET)") || \
+## 		echo "$(RED)[clean ]: Can't clean \`ft_printf\` lib$(RESET)"
+## 	@(test -s $(LIBFT_LIB) && $(MAKE) -sC $(LIBFT_PATH) clean && \
+## 		echo "$(YELLOW)[clean ]: Clean \`libft\` lib$(RESET)") || \
+## 		echo "$(RED)[clean ]: Can't clean \`libft\` lib$(RESET)"
 
-fclean:
+fclean: clean
 	@$(RM) $(TARGET)
-	@$(RM) $(LOG_FILE)
-	@$(RM) -r $(LOG_DIR)
+	@echo "$(YELLOW)[fclean]: Remove \`$(TARGET)\`$(RESET)"
+## 	@(test -s $(FT_PRINTF_LIB) && $(MAKE) -sC $(FT_PRINTF_PATH) fclean && \
+## 		echo "$(YELLOW)[fclean]: Remove \`ft_printf\` lib$(RESET)") || \
+## 		echo "$(RED)[fclean]: Can't remove \`ft_printf\` lib$(RESET)"
+## 	@(test -s $(LIBFT_LIB) && $(MAKE) -sC $(LIBFT_PATH) fclean && \
+## 		echo "$(YELLOW)[fclean]: Remove \`libft\` lib$(RESET)") || \
+## 		echo "$(RED)[fclean]: Can't remove \`libft\` lib$(RESET)"
 
 re: fclean all
 

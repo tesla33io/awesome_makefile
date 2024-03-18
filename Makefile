@@ -1,6 +1,6 @@
 #### MAIN SETTINGS ####
 
-CC				:= cc
+CC				:= clang
 CFLAGS			:= -Wall -Werror -Wextra -pedantic -O3
 LIBS			:=
 INCLUDES		:= -Iinclude/

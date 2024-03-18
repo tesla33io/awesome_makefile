@@ -67,7 +67,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 
 # Rule for linking the target executable
-$(TARGET): $(OBJ_FILES) $(LIBFT_LIB) $(FT_PRINTF_LIB)
+$(TARGET): $(OBJ_FILES) ## $(LIBFT_LIB) $(FT_PRINTF_LIB)
 	@echo "$(GREEN)[build]: Link $(TARGET)$(RESET)"
 	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)
 	@echo "$(GREEN)[info ]: Build finished!$(RESET)"

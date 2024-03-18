@@ -64,7 +64,7 @@ all: $(TARGET) ## Build this project
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(MKDIR) $(@D)
 	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo -n " build]: $(CYAN)"
+	@echo -n "build]: $(CYAN)"
 	@echo "$(BOLD)compile$(RESET)$(CYAN) $@ $(RESET)"
 	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 

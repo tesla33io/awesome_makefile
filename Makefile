@@ -75,7 +75,7 @@ $(TARGET): $(OBJ_FILES) $(LIBFT_LIB)
 	@echo "$(BOLD)Link$(RESET)$(GREEN) $(TARGET) $(RESET)"
 	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)
 	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "info ]: $(GREEN)$(BOLD)Build finished!$(RESET)"
+	@echo "info]: $(GREEN)$(BOLD)Build finished!$(RESET)"
 	-@echo -n "$(MAGENTA)" && ls -lah $(TARGET) && echo -n "$(RESET)"
 
 #### LOCAL LIBS COMPILATION ####
@@ -92,11 +92,11 @@ clean: ## Clean objects and dependencies
 	@$(RM) $(OBJ_FILES)
 	@$(RM) -r $(OBJ_DIR)
 	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "clean ]: $(YELLOW)$(BOLD)Remove objects$(RESET)"
+	@echo "clean]: $(YELLOW)$(BOLD)Remove objects$(RESET)"
 	@$(RM) $(DEPENDS)
 	@$(RM) -r $(DEP_DIR)
 	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "clean ]: $(YELLOW)$(BOLD)Remove dependecies$(RESET)"
+	@echo "clean]: $(YELLOW)$(BOLD)Remove dependecies$(RESET)"
 ## 	@(test -s $(LIBFT_LIB) && $(MAKE) -C $(LIBFT_PATH) clean) ||:
 
 fclean: clean ## Restore project to initial state

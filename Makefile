@@ -1,19 +1,36 @@
 #### MAIN SETTINGS ####
 
+# Compiler to be used
 CC				:= clang
+
+# Compiler flags
 CFLAGS			:= -Wall -Werror -Wextra -pedantic -O3
+
+# Libraries to be linked (if any)
 LIBS			:=
+
+# Include directories
 INCLUDES		:= -Iinclude/
 
+# Target executable
 TARGET			:=
 
+# Source files directory
 SRC_DIR			:= src/
+
+# Source files
 SRC_FILES		+= main.c		# Main
 
+# Object files directory
 OBJ_DIR			:= obj/
+
+# Object files
 OBJ_FILES		:= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC_FILES))
 
+# Dependency files directory
 DEP_DIR			:= dep/
+
+# Dependency files
 DEPENDS			:= $(patsubst %.o, $(DEP_DIR)%.d, $(OBJ_FILES))
 -include $(DEPENDS)
 
@@ -43,11 +60,13 @@ endif
 
 all: $(TARGET) ## Build this project
 
+# Compilation rule for object files
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(MKDIR) $(@D)
 	@echo "$(CYAN)[build]: $@$(RESET)"
 	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 
+# Rule for linking the target executable
 $(TARGET): $(OBJ_FILES) $(LIBFT_LIB) $(FT_PRINTF_LIB)
 	@echo "$(GREEN)[build]: Link $(TARGET)$(RESET)"
 	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)

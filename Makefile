@@ -7,7 +7,7 @@ CC				:= clang
 CFLAGS			:= -Wall -Werror -Wextra -pedantic -O3
 
 # Libraries to be linked (if any)
-LIBS			:= -Llib/libft/ -lft
+LIBS			:=
 
 # Include directories
 INCLUDES		:= -Iinclude/

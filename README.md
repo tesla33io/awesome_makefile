@@ -1,4 +1,4 @@
-# My Awesome Makefile :nerd_face:
+# Awesome Makefile :nerd_face:
 
 **Note:**
 - The current version is tailored for C projects.

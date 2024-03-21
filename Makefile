@@ -25,7 +25,7 @@ SRC_FILES		+= main.c		# Main
 OBJ_DIR			:= obj/
 
 # Object files
-OBJ_FILES		:= $(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRC_FILES)))
+OBJ_FILES		:= $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC_FILES))
 
 # Dependency files directory
 DEP_DIR			:= dep/

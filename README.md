@@ -3,17 +3,25 @@
 **Note:**
 - The current version is tailored for C projects.
 - A C++ version is not in development yet.
-## How to use
-1. Read about [GNU Make](https://www.gnu.org/software/make/manual/make.html) if you have not yet.
-2. Download Makefile to your local directory
-   
-```bash
-wget "https://raw.githubusercontent.com/tesla33io/awesome_makefile/main/Makefile"
-   ```
 
-3. Make any needed changes.
-4. Specify empty variables.
-5. Run `make`.
+## How to use
+
+Just follow these straightforward steps:
+
+1. **Learn about GNU Make 📚**: If you're not familiar with the ins and outs of [GNU Make](https://www.gnu.org/software/make/manual/make.html), take a moment to acquaint yourself with its wonders. A quick skim through the documentation should do the trick.
+
+2. **Fetch the Makefile 💾**: Secure your very own copy of Makefile by downloading it to your local directory. Simply use the following `wget` command:
+    ```bash
+    wget "https://raw.githubusercontent.com/tesla33io/awesome_makefile/main/Makefile"
+    ```
+
+3. **Customize as needed ✒️**: Open the Makefile in your preferred text editor and make any necessary adjustments. Be sure to fill in any empty variables to tailor it to your specific needs.
+
+4. **Initiate the Magic 🧙‍♂️**: Now it's time to put Makefile to work! Execute the following command in your terminal:
+    ```bash
+    make
+    ```
+    Watch as your code transforms like magic ✨, thanks to the power of make.
 
 ## Docs
 ---

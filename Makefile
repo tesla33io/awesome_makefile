@@ -63,19 +63,19 @@ all: $(TARGET) ## Build this project
 # Compilation rule for object files
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(MKDIR) $(@D)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo -n "build]: $(CYAN)"
-	@echo "$(BOLD)compile$(RESET)$(CYAN) $@ $(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"build]:$(CYAN)" \
+	"$(BOLD)compile$(RESET)$(CYAN) $@ $(RESET)"
 	@$(CC) $(CFLAGS) -MMD -MF $(patsubst %.o, %.d, $@) $(INCLUDES) -c $< -o $@
 
 # Rule for linking the target executable
 $(TARGET): $(OBJ_FILES) $(LIBFT_LIB)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo -n "build]: $(GREEN)"
-	@echo "$(BOLD)Link$(RESET)$(GREEN) $(TARGET) $(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"build]:$(GREEN)" \
+	"$(BOLD)Link$(RESET)$(GREEN) $(TARGET) $(RESET)"
 	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(INCLUDES) $(LIBS)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "info]: $(GREEN)$(BOLD)Build finished!$(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"info]: $(GREEN)$(BOLD)Build finished!$(RESET)"
 	-@echo -n "$(MAGENTA)" && ls -lah $(TARGET) && echo -n "$(RESET)"
 
 #### LOCAL LIBS COMPILATION ####
@@ -91,19 +91,19 @@ $(TARGET): $(OBJ_FILES) $(LIBFT_LIB)
 clean: ## Clean objects and dependencies
 	@$(RM) $(OBJ_FILES)
 	@$(RM) -r $(OBJ_DIR)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "clean]: $(YELLOW)$(BOLD)Remove objects$(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"clean]: $(YELLOW)$(BOLD)Remove objects$(RESET)"
 	@$(RM) $(DEPENDS)
 	@$(RM) -r $(DEP_DIR)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo "clean]: $(YELLOW)$(BOLD)Remove dependecies$(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"clean]: $(YELLOW)$(BOLD)Remove dependecies$(RESET)"
 ## 	@(test -s $(LIBFT_LIB) && $(MAKE) -C $(LIBFT_PATH) clean) ||:
 
 fclean: clean ## Restore project to initial state
 	@$(RM) $(TARGET)
-	@echo -n "$(BLUE)[$(TARGET) - "
-	@echo -n "fclean]: $(YELLOW)"
-	@echo "$(BOLD)Remove$(RESET)$(YELLOW) \`$(TARGET)\`$(RESET)"
+	@echo "$(BLUE)[$(TARGET) -" \
+	"fclean]:$(YELLOW)" \
+	"$(BOLD)Remove$(RESET)$(YELLOW) \`$(TARGET)\`$(RESET)"
 ## 	@(test -s $(LIBFT_LIB) && $(MAKE) -C $(LIBFT_PATH) fclean) ||:
 
 re: fclean all ## Rebuild project

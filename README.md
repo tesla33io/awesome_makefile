@@ -51,7 +51,7 @@ If `DEBUG` environmental variable exists with value `1` next flags added to `CFL
 ---
 ##### `INCLUDES` - Include directories
 
-Default: `-Iinclude/`
+Default: `-Iinc/`
 
 ---
 ##### `TARGET` - Name of the target executable
